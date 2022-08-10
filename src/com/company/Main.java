@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -30,7 +31,7 @@ public class Main {
     }
     static String choosePetString = " Choose pet: \n 1. Dog \n 2. Duck \n 3. Bird \n 4. Cat";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 	int round = 1, choose, choosePet, feed;
 	boolean ifEnd = false;
 
@@ -84,14 +85,30 @@ public class Main {
                 }
                 break;
             }
+            //next round:
+            case 3:{
+                round++;
+                dog.starve();
+                duck.starve();
+                bird.starve();
+                cat.starve();
+                System.out.println("______________________________\n NEW DAY");
+                dog.statistics();
+                duck.statistics();
+                bird.statistics();
+                cat.statistics();
+                break;
+            }
             case 4: {
                 ifEnd = true;
                 break;
             }
         }
-        choose=0;
-
-	    round++;
+        if((dog.getAlive()==false)||(duck.getAlive()==false)||(bird.getAlive()==false)||(cat.getAlive()==false)){
+            System.out.println("YOU HAVE LOST! One of your pets has just died");
+            ifEnd=true;
+        }
+        if(round%7==0) foodMagazine += 500;
     }
     }
 }
